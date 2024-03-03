@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food/Drink Statement</title>
+    <link rel="stylesheet" href="css/styles.css" />
+
+  </head>
+  <body>
+    <header>
+      <h1>The Yoga Plant Food Sales</h1>
+      <p>Fill in the number of items sold in the form below 
+        to generate a monthly financial statement.</p>
+    </header>
+    <main>
+      <form id="foodSalesForm">
+        <h3>Number of Drinks Sold</h3>
+        <label for="drinksSoldCredit">Card:</label>
+        <input id="drinksSoldCredit" required type="number" /><br>
+        <label for="drinksSoldCash">Cash:</label>
+        <input id="drinksSoldCash" required type="number" /><br>
+
+        <hr>
+
+        <h3>Number of Protein Bites Sold</h3>
+        <label for="bitesSoldCredit">Card:</label>
+        <input id="bitesSoldCredit" required type="number" /><br>
+        <label for="bitesSoldCash">Cash:</label>
+        <input id="bitesSoldCash" required type="number" /><br>
+
+        <hr>
+
+        <h3>Number of Yogurt Parfaits Sold</h3>
+        <label for="parfaitsSoldCredit">Card:</label>
+        <input id="parfaitsSoldCredit" required type="number" /><br>
+        <label for="parfaitsSoldCash">Cash:</label>
+        <input id="parfaitsSoldCash" required type="number" /><br>
+
+        <hr>
+
+        <h3>Monthly Expenses</h3>
+        <label for="monthlyExpenses">$</label>
+        <input id="monthlyExpenses" required type="number" /><br>
+
+        <hr>
+
+        <input type="submit" value="Calculate" />
+      </form>
+      
+      <img src="ypLogo.png" alt="Yoga Plant Logo" width="290">
+      
+      <p id="output"></p>
+
+    </main>
+    <script src="js/index.js"></script>
+  </body>
+</html>

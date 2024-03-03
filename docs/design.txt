@@ -1,0 +1,202 @@
+PROBLEM STATEMENT:
+  Each month, a small business owner wants a program that generates a profit statement,
+  in order to calculate the income earned by the food sales manager.
+  The program must ask for the number of food sales, the amount of credit card transactions,
+  and the amount of cash transactions, before calculating credit and cash sales. Credit 
+  transactions are charged an additional 2.9% fee as well as a $0.30 fee per transaction 
+  for using Stripe's Payment Processing system. These fees be removed from the credit sales 
+  before combining with the cash sales to determine the food sales, minus fees. A 5.5% sales 
+  tax must be removed from the total sales to determine net sales. Monthly purchases are 
+  subtracted from the net sales to determine the remaining profit.
+
+Nouns: profit statment, number of food sales, credit card transactions, cash transactions, 
+  credit fee, transaction fee, payment processing system, credit sales, cash sales, food sales,
+  sales tax, net sales, monthly purchases, profit
+
+Verbs: ask, calculate, remove, combine, determine, remove, determine, subtract
+
+
+
+
+DEFINING DIAGRAM:
+
+  INPUTS:
+    numCreditSales
+    numCashSales
+    monthlyExpenses
+
+
+  PROCESSING:
+    prompt for numCreditSales
+    prompt for numCashSales
+    prompt for MonthlyExpenses
+
+    calculate creditSales
+    calculate creditFees
+    calculate creditTransactionFees
+    calculate cashSales
+    calculate totalSales
+    calculate salesTax
+    calculate netSales
+    calculate profit
+    
+    display profitStatement
+
+  OUTPUTS:
+    profitStatement
+
+
+
+SOLUTION ALGORITHM:
+
+  MonthlyStatementGenerator
+
+    INIT juiceCost as 5
+    INIT bitesCost as 6.49
+    INIT parfaitCost as 5
+    INIT salesTax as 0.055
+    INIT cardUsageFee as 0.029
+    INIT perSwipeFee as 0.3
+
+    INIT numJuiceSoldCard as 0
+    INIT numJuiceSoldCash as 0
+    INIT numBitesSoldCard as 0
+    INIT numBitesSoldCash as 0
+    INIT numParfaitsSoldCard as 0
+    INIT numParfaitsSoldCash as 0
+    INIT monthlyExpenses as 0
+
+    INIT juiceRevenue as 0
+    INIT bitesRevenue as 0
+    INIT parfaitsRevenue as 0
+    INIT cardRevenue as 0
+    INIT cashRevenue as 0
+    INIT revenueTotal as 0
+    INIT profit as 0
+
+    INIT salesTaxTotal as 0
+    INIT numCardSwipes as 0
+    INIT cardFeesTotal as 0
+
+    PROMPT for numJuiceSoldCard with "How many drinks were purchased with a card?"
+    PROMPT for numJuiceSoldCash with "How many drinks were purchased with cash or store credit?"
+    PROMPT for numBitesSoldCard with "How many protein bites were purchased with a card?"
+    PROMPT for numBitesSoldCash with "How many protein bites were purchased with cash or store credit?"
+    PROMPT for numParfaitsSoldCard with "How many yogurt parfaits were purchased with a card?"
+    PROMPT for numParfaitsSoldCash with "How many yogurt parfaits were purchased with cash or store credit?"
+    PROMPT for monthlyExpenses with "What were your monthly expenses?"
+
+    CONVERT numJuiceSoldCard to Number
+    CONVERT numJuiceSoldCash to Number
+    CONVERT numBitesSoldCard to Number
+    CONVERT numBitesSoldCash to Number
+    CONVERT numParfaitsSoldCard to Number
+    CONVERT numParfaitsSoldCash to Number
+    CONVERT monthlyExpenses to Number
+
+    CALCULATE numJuiceSoldTotal as numJuiceSoldCard + numJuiceSoldCash
+    CALCULATE numBitesSoldTotal as numBitesSoldCard + numBitesSoldCash
+    CALCULATE numParfaitsSoldTotal as numParfaitsSoldCard + numParfaitsSoldCash
+    CALCULATE juiceRevenue as (numJuiceSoldCard + numJuiceSoldCash) * juiceCost * (1 + salesTax)
+    CALCULATE bitesRevenue as (numBitesSoldCard + numBitesSoldCash) * bitesCost * (1 + salesTax)
+    CALCULATE parfaitsRevenue as (numParfaitsSoldCard + numParfaitsSoldCash) * 
+      parfaitCost * (1 + salesTax)
+
+    CALCULATE numCardSwipes as numJuiceSoldCard + numBitesSoldCard + numParfaitsSoldCard
+    CALCULATE cardRevenue as ((numJuiceSoldCard * juiceCost) + (numBitesSoldCard * bitesCost) + 
+      (numParfaitsSoldCard * parfaitCost)) * salesTax
+    
+    CALCULATE cashRevenue as ((numJuiceSoldCash * juiceCost) + (numBitesSoldCash * bitesCost) + 
+      (numParfaitsSoldCash * parfaitCost)) * salesTax
+
+    CALCULATE cardFeesTotal as (numCardSwipes * perSwipeFee) + (cardRevenue * cardUsageFee)
+    CALCULATE revenueTotal as juiceRevenue + bitesRevenue + parfaitsRevenue
+    CALCULATE salesTaxTotal as ((numJuiceSoldTotal * juiceCost) + 
+      (numBitesSoldTotal * bitesCost) + (numParfaitsSoldTotal * parfaitCost)) * salesTax
+
+    CALCULATE profit as revenueTotal - salesTaxTotal - cardFeesTotal - monthlyExpenses
+
+    OUTPUT as 
+      numJuiceSoldTotal + " juices sold: $" + juiceRevenue + "\n" + 
+      numBitesSoldTotal + " protein bites sold: $" + bitesRevenue + "\n" + 
+      numParfaitsSoldTotal + " parfaits sold: $" + parfaitsRevenue + "\n\n" + 
+      "Card Fees: $" + cardFeesTotal + "\n" + 
+      "Sales Tax: $" + salesTaxTotal + "\n" + 
+      "Monthly Expenses: $" + monthlyExpenses + "\n\n" + 
+      "Profit: $" + profit
+  
+  END
+
+
+
+TEST CASES:
+
+  VARIABLES: 
+    numJuiceSoldCard, numJuiceSoldCash, numBitesSoldCard, numBitesSoldCash, numParfaitsSoldCard, numParfaitsSoldCash, monthlyExpenses
+
+  TEST CASE 1:
+    INPUT VALUES: 23, 0, 38, 6, 16, 2, 200
+    
+    YOUR EXPECTED RESULT:
+      23 juices sold: $121.33
+      44 protein bites sold: $301.27
+      18 parfaits sold: $94.95
+
+      Card Fees: $23.80
+      Sales Tax: $26.98 
+      Monthly Expenses: $200.00
+
+      Profit: $266.76
+
+    YOUR ACTUAL RESULT:
+
+
+  TEST CASE 2:
+    INPUT VALUES: 10, 10, 10, 10, 10, 10, 150
+    
+    YOUR EXPECTED RESULT:
+      20 juices sold: $105.50
+      20 protein bites sold: $136.94
+      20 parfaits sold: $105.50
+
+      Card Fees: $9.26
+      Sales Tax: $18.14
+      Monthly Expenses: $150.00
+
+      Profit: $170.54
+
+    YOUR ACTUAL RESULT:
+
+
+  TEST CASE 3:
+    INPUT VALUES: 22, 7, 17, 19, 21, 3, 200
+    
+    YOUR EXPECTED RESULT:
+      29 juices sold: $152.97
+      36 protein bites sold: $246.49
+      24 parfaits sold: $126.60
+
+      Card Fees: $18.52
+      Sales Tax: $27.43
+      Monthly Expenses: $200.00
+
+      Profit: $280.12
+
+    YOUR ACTUAL RESULT:
+
+
+  TEST CASE 4:
+    INPUT VALUES: 30, 0, 0, 15, 15, 15, 125
+    
+    YOUR EXPECTED RESULT:
+      30 juices sold: $158.25
+      15 protein bites sold: $102.70
+      30 parfaits sold: $158.25
+
+      Card Fees: $13.86
+      Sales Tax: $21.85
+      Monthly Expenses: $125.00
+
+      Profit: $258.49
+
+    YOUR ACTUAL RESULT:
